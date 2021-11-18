@@ -1,38 +1,48 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, Min, IsNumber, min } from 'class-validator';
+import { CreateCategoryDto } from '../../category/dto/create-category.dto';
 
-export  class CreateProductDto {
+export class CreateProductDto {
   @ApiProperty({
-    title:'The name product',
+    title: 'The name product',
     description: 'The name product',
-    type:String,
+    type: String,
     default: '',
-    minimum:2,
-    required:true,
+    minimum: 2,
+    required: true,
   })
-  readonly title:string
+  @IsString()
+  @IsNotEmpty()
+  readonly title: string;
 
   @ApiProperty({
-    title:'The description product',
+    title: 'The description product',
     description: 'The description product',
-    type:String,
+    type: String,
     default: '',
-    required:false,
+    required: false,
   })
-  readonly description:string
+  @IsString()
+  readonly description: string;
+
   @ApiProperty({
-    title:'The id category',
+    title: 'The id category',
     description: 'The id product',
-    type:Number,
-    default: 1,
-    required:true,
+    type: String,
+    default: '',
+    required: true,
   })
-  readonly category:number
+  readonly category: CreateCategoryDto[];
+
   @ApiProperty({
-    title:'The amount product',
+    title: 'The amount product',
     description: 'The amount product',
-    type:Number,
+    type: Number,
     default: 1,
-    required:true,
+    required: true,
   })
-  readonly amount:number
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(2)
+  readonly amount: number;
 }

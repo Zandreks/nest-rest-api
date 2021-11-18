@@ -7,26 +7,31 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class ProductsService {
-  constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
+  constructor(
+    @InjectModel(Product.name) private productModel: Model<ProductDocument>,
+  ) {}
 
-  async create(createProductDto: CreateProductDto):Promise<Product> {
-    const newProduct = new this.productModel(createProductDto)
-    return newProduct.save()
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    const newProduct = new this.productModel(createProductDto);
+    return newProduct.save();
   }
 
-  async findAll():Promise<Product[]> {
-    return this.productModel.find().exec()
+  async findAll(): Promise<Product[]> {
+    return this.productModel.find().exec();
   }
 
-  async findOne(id: string):Promise<Product> {
-    return this.productModel.findById(id)
+  async findOne(id: string): Promise<Product> {
+    return this.productModel.findById(id);
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto):Promise<Product> {
-    return this.productModel.findByIdAndUpdate(id,updateProductDto)
+  async update(
+    id: string,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    return this.productModel.findByIdAndUpdate(id, updateProductDto);
   }
 
-  async remove(id: string):Promise<Product> {
-    return this.productModel.findByIdAndRemove(id)
+  async remove(id: string): Promise<Product> {
+    return this.productModel.findByIdAndRemove(id);
   }
 }
